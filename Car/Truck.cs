@@ -20,7 +20,9 @@ namespace Car
         protected int kuzov;
         protected double mileage; //Пробег общий
         public string? Nom { get { return number_Car; } }
-        public Truck() { Menu(cars); }
+        public Truck() { 
+            Menu(cars); 
+        }
         protected override void Info(List<Auto> cars)
         {
             this.type = "Грузовик";

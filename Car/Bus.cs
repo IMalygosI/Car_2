@@ -249,7 +249,7 @@ namespace Car
                 kilom = Math.Round((volume_Tank / consumption_Fuel) * 100);
                 Console.WriteLine($"\n> Вы проехали: {interval} Км");// Интервал это то сколько -за раз едем, если остановаится он сбрасывается до 0 ну пробег все еще остается!
                 // Console.WriteLine($"> Объем бака: {volume_Tank} литров");
-                Console.WriteLine($"> Необходимо проехать до конечной остановки:: {kilometrdoost} Км");
+                Console.WriteLine($"> Необходимо проехать до конечной остановки: {kilometrdoost} Км");
                 Console.WriteLine($"> Ваша скорость: {speed} Км");
                 Console.WriteLine($"> Ваш весь маршрут с дорогой обратно: {distance} Км\n");
                 if (currentamount_Gasoline == 0 || currentamount_Gasoline <= 0)
@@ -281,7 +281,7 @@ namespace Car
                     speed = 0;
                     interval = 0;
                     mileage += probeg;
-                    Console.WriteLine("База");
+                    Console.WriteLine("База, конец пути");
                     Console.WriteLine($"Топлива осталось: {Math.Round(currentamount_Gasoline, 1)} литров.");
                     Console.WriteLine($"Пробег: {Math.Round(mileage)} километров.");
                     distance = 0;
@@ -339,7 +339,7 @@ namespace Car
                         speed = 0;
                         interval = 0;
                         mileage += probeg;
-                        Console.WriteLine("База");
+                        Console.WriteLine("База, конец пути");
                         Console.WriteLine($"Топлива осталось: {Math.Round(currentamount_Gasoline, 1)} литров.");
                         Console.WriteLine($"Пробег: {Math.Round(mileage)} километров.");
                         distance = 0;
@@ -351,7 +351,7 @@ namespace Car
                 topost = ((otsihdosih * consumption_Fuel) / 100);
                 Console.WriteLine($"\n> Вы проехали: {interval} Км");// Интервал это то сколько -за раз едем, если остановаится он сбрасывается до 0 ну пробег все еще остается!
                 // Console.WriteLine($"> Объем бака: {volume_Tank} литров");
-                Console.WriteLine($"> Необходимо проехать до конечной остановки:: {kilometrdoost} Км");
+                Console.WriteLine($"> Необходимо проехать до конечной остановки: {kilometrdoost} Км");
                 Console.WriteLine($"> Ваша скорость: {speed} Км");
                 Console.WriteLine($"> Ваш весь маршрут с дорогой обратно: {distance} Км\n");
                 if (currentamount_Gasoline == 0)
