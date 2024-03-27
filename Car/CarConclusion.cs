@@ -41,15 +41,14 @@ internal class CarConclusion
             }
             else if(vybor1 == "2")
             {
-                foreach (Auto auto in cars)
+                Console.WriteLine("Введите номер автомобиля: ");
+                string? s = Console.ReadLine();
+                var names = from g in Auto.cars
+                            where g.Num_Car == s
+                            select g;
+                foreach (var name in names)
                 {
-                    Console.WriteLine("Введите номер автомобиля: ");
-                    string? s = Console.ReadLine();
-                    if (s == auto.Num_Car)
-                    {
-                        car = auto;
-                        car.Menu(cars);
-                    }
+                    name.Menu(Auto.cars);
                 }
             }
         }

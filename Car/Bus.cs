@@ -19,7 +19,9 @@ namespace Car
         protected double mileage; //Пробег общий
         //protected double top2;
         public string? Nom { get { return number_Car; } }
-        public Bus() { Menu(cars); }
+        public Bus() {
+            Menu(cars); 
+        }
         public static int metod = 0;
 
         protected override void Info(List<Auto> cars)
@@ -99,7 +101,7 @@ namespace Car
                 this.otsihdosih = Math.Round((distance / 2) / Number_Bus_Stops);
                 this.kilometrdoost = distance / 2;
                 this.kilometragh = Math.Round((currentamount_Gasoline / consumption_Fuel) * 100); //На сколько километров хватит бензина
-                Console.WriteLine($"Ваш маршрут: {distance / 2}. \nОстановок: {Number_Bus_Stops}.");
+                Console.WriteLine($"Ваш маршрут: {distance / 2} Км. \nОстановок на маршруте: {Number_Bus_Stops}.");
                 this.interval = 0;
                 Menu(cars);
             }
@@ -109,7 +111,6 @@ namespace Car
             speed = 0;
             Console.WriteLine($"\n> Вы остановились\n");
             Console.WriteLine($"> Номер авто: {number_Car}");
-            Console.WriteLine($"> Пробег автомобиля: {mileage} км");
             Drive2(cars);
             Menu(cars);
         }
@@ -124,6 +125,7 @@ namespace Car
             {
                 if (currentamount_Gasoline > 0)
                 {
+                    double iii = interval;
                     speed += 20;
                     Drive2(cars);
                     Menu(cars);
@@ -144,10 +146,6 @@ namespace Car
                 }
             }
         }
-
-
-
-
         protected override void Drive2(List<Auto> cars)
         {
             if (speed > 0) //Если машина в принципе поехала
@@ -252,7 +250,7 @@ namespace Car
                 kilom = Math.Round((volume_Tank / consumption_Fuel) * 100);
                 Console.WriteLine($"\n> Вы проехали: {interval} Км");// Интервал это то сколько -за раз едем, если остановаится он сбрасывается до 0 ну пробег все еще остается!
                 // Console.WriteLine($"> Объем бака: {volume_Tank} литров");
-                Console.WriteLine($"> Необходимо проехать до следующей точки: {kilom} Км");
+                Console.WriteLine($"> Необходимо проехать до конечной остановки:: {kilometrdoost} Км");
                 Console.WriteLine($"> Ваша скорость: {speed} Км");
                 Console.WriteLine($"> Ваш весь маршрут с дорогой обратно: {distance} Км\n");
                 if (currentamount_Gasoline == 0 || currentamount_Gasoline <= 0)
@@ -354,7 +352,7 @@ namespace Car
                 topost = ((otsihdosih * consumption_Fuel) / 100);
                 Console.WriteLine($"\n> Вы проехали: {interval} Км");// Интервал это то сколько -за раз едем, если остановаится он сбрасывается до 0 ну пробег все еще остается!
                 // Console.WriteLine($"> Объем бака: {volume_Tank} литров");
-                Console.WriteLine($"> Необходимо проехать до следующей точки: {kilom} Км");
+                Console.WriteLine($"> Необходимо проехать до конечной остановки:: {kilometrdoost} Км");
                 Console.WriteLine($"> Ваша скорость: {speed} Км");
                 Console.WriteLine($"> Ваш весь маршрут с дорогой обратно: {distance} Км\n");
                 if (currentamount_Gasoline == 0)
@@ -409,7 +407,8 @@ namespace Car
                     Zapravka(cars);
                     break;
                 case "5":
-                    return;
+                    CarConclusion.categories(cars);
+                    break;
                 case "6":
                     Crash(cars);
                     break;

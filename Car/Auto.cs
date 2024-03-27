@@ -200,13 +200,15 @@ namespace Car
         //    }
         //}
 
-
+        protected virtual void Crah(List<Auto> cars)
+        {
+            Crash(cars);
+        }
         protected virtual void Stop(List<Auto> cars)
         {
             speed = 0;
             Console.WriteLine($"\n> Вы остановились\n");
             Console.WriteLine($"> Номер авто: {number_Car}");
-            Console.WriteLine($"> Пробег автомобиля: {mileage} км");
             Drive2(cars);
             Menu(cars);
         }
@@ -234,9 +236,11 @@ namespace Car
                     switch (zap)
                     {
                         case "1":
-                            Zapravka(cars); break;
+                            Zapravka(cars); 
+                            break;
                         case "2":
-                            Stop(cars); break;
+                            Stop(cars); 
+                            break;
                     }
                 }
             }
@@ -282,16 +286,12 @@ namespace Car
                 }
             }
         }
-
-
-
-
-
         protected virtual void Crash(List<Auto> cars) //Авария
         {
             if (cars.Count == 1)
             {
                 Console.WriteLine("Ваша машина единственная на трассе) ");
+                Menu(cars);
             }
             else if (cars.Count > 1)
             {
@@ -408,17 +408,6 @@ namespace Car
                 interval = 0;
                 Console.WriteLine("Вы выполнили цель поездки!");
                 Console.WriteLine($"> Пробег автомобиля: {mileage} км");
-                Console.WriteLine($"\n1 - Вернутся в меню автомобиля\n2 - Закончить работу с автомобилем\n");
-                string? vybor = Console.ReadLine();
-                if (vybor == "1")
-                {
-                    Menu(cars);
-                }
-                else if (vybor == "2")
-                {
-                    return;
-                }
-
             }
             if (currentamount_Gasoline < 2 && interval < distance && interval != 0)
             {
@@ -512,9 +501,10 @@ namespace Car
                     Zapravka(cars);
                     break;
                 case "5":
-                    return;
+                    CarConclusion.categories(cars);
+                    break;
                 case "6":
-                    Crash(cars);
+                    Crah(cars);
                     break;
                 default:
                     Console.WriteLine("\nКоманды с таким номером не существует");

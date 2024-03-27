@@ -142,7 +142,6 @@ namespace Car
             speed = 0;
             Console.WriteLine($"\n> Вы остановились\n");
             Console.WriteLine($"> Номер авто: {number_Car}");
-            Console.WriteLine($"> Пробег автомобиля: {mileage} км");
             Drive2(cars);
             Menu(cars);
         }
@@ -516,7 +515,9 @@ namespace Car
                     Zapravka(cars);
                     break;
                 case "5":
-                    return;
+                    CarConclusion.categories(cars); 
+                    break;
+                   // return;
                 case "6":
                     Crash(cars);
                     break;
