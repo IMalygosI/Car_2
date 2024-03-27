@@ -17,7 +17,6 @@ namespace Car
         protected double kilom;
         protected int Passenger;
         protected double mileage; //Пробег общий
-        //protected double top2;
         public string? Nom { get { return number_Car; } }
         public Bus() {
             Menu(cars); 
