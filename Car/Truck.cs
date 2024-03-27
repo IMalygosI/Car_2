@@ -47,38 +47,6 @@ namespace Car
             }//Номер машины
             this.volume_Tank = 80;
             Console.WriteLine($"Объем бака грузовика: {volume_Tank}\n");
-            Console.WriteLine("> Укажите нынешний уровень топлива:\n1- Ввод вручную\n2- Автоматически");
-            string? Choice_Current_quantity_gasoline = Console.ReadLine();
-            if (Choice_Current_quantity_gasoline == "1")//текущее количество бензина
-            {
-                Console.WriteLine("Уровень топлива:");
-                this.currentamount_Gasoline = Convert.ToDouble(Console.ReadLine());
-                if (volume_Tank >= currentamount_Gasoline)
-                {
-                    Console.WriteLine($"Уровень топлива: {currentamount_Gasoline}");
-                }
-                else
-                {
-                    this.currentamount_Gasoline = volume_Tank;
-                    Console.WriteLine($"Уровень топлива: {currentamount_Gasoline}");
-                }
-            }//текущее количество бензина 
-            if (Choice_Current_quantity_gasoline == "2")
-            {
-                Random rnd = new Random();
-                int currentamount = rnd.Next(0, 90);
-                this.currentamount_Gasoline = currentamount;
-                if (volume_Tank >= currentamount)
-                {
-                    Console.WriteLine($"Уровень топлива: {currentamount_Gasoline}");
-                }
-                else
-                {
-                    currentamount_Gasoline = volume_Tank;
-                    Console.WriteLine($"Уровень топлива: {currentamount_Gasoline}");
-                }
-            }//текущее количество бензина 
-
             Console.WriteLine("> Укажите Грузоподъёмность:\n1- Ввод вручную\n2- Автоматически");
             string? Choice_carrying = Console.ReadLine();
             if (Choice_carrying == "1")//текущая Грузоподъемность
@@ -527,6 +495,10 @@ namespace Car
                     Menu(cars);
                 }
             }
+        }
+        protected override void Crash(List<Auto> cars)
+        {
+            base.Crash(cars);
         }
         public override void Menu(List<Auto> cars)//меню выбора
         {

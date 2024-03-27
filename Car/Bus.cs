@@ -9,20 +9,21 @@ namespace Car
 {
     internal class Bus : Auto
     {
-        protected double Stops_Bus_dis;//до остановки
-        protected int Number_Bus_Stops;//кол-во остановок автобуса
-        protected int place_Passenger_in_Bus;//Место для пассажиров в автобусе
-        protected int Passenger;//Пассажир
-        protected double remainder;//остаток от раст. для остановок в сторону 1
+        protected double otsihdosih;
+        protected int Number_Bus_Stops;
+        protected int place_Passenger_in_Bus;
+        protected double topost;
+        protected double kilometrdoost;
+        protected double kilom;
+        protected int Passenger;
+        protected double mileage; //Пробег общий
+        //protected double top2;
+        public string? Nom { get { return number_Car; } }
+        public Bus() { Menu(cars); }
+        public static int metod = 0;
 
-        public Bus()
+        protected override void Info(List<Auto> cars)
         {
-            Info(cars);
-        }
-
-        protected override void Info(List<Auto> cars) //Информация об автомобиле
-        {
-            this.type = "Автобус";
             Console.WriteLine("\n> Выбрать номер автобуса:\n1- Ввод вручную\n2- Автоматически");
             string? Choice_select_car_number = Console.ReadLine();
             if (Choice_select_car_number == "1")//Номер машины
@@ -46,326 +47,214 @@ namespace Car
             }//Номер машины
             this.volume_Tank = 60;
             Console.WriteLine($"Объем бака автобуса: {volume_Tank}\n");
-            /*
-            Console.WriteLine("> Укажите расход топлива :\n1- Ввод вручную\n2- Автоматически");
-            string? Choice_select_car_consumption = Console.ReadLine();
-            if (Choice_select_car_consumption == "1")//Расход топлива машины
-            {
-                Console.WriteLine("Расход топлива (на 100 км):");
-                this.consumption_Fuel = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine($"Расход топлива (на 100 км): {consumption_Fuel}\n");
-            }//Расход топлива машины
-            if (Choice_select_car_consumption == "2")//Расход топлива машины
-            {
-                Random rnd = new Random();
-                int consumption = rnd.Next(8, 17);
-                this.consumption_Fuel = consumption;
-                Console.WriteLine($"Расход топлива (на 100 км): {consumption_Fuel}\n");
-            }//Расход топлива машины
-            *///Рассход топлива
-            Console.WriteLine("> Укажите нынешний уровень топлива:\n1- Ввод вручную\n2- Автоматически");
-            string? Choice_Current_quantity_gasoline = Console.ReadLine();
-            if (Choice_Current_quantity_gasoline == "1")//текущее количество бензина
-            {
-                Console.WriteLine("Уровень топлива:");
-                this.currentamount_Gasoline = Convert.ToDouble(Console.ReadLine());
-                if (volume_Tank >= currentamount_Gasoline)
-                {
-                    Console.WriteLine($"Уровень топлива: {currentamount_Gasoline}");
-                }
-                else
-                {
-                    this.currentamount_Gasoline = volume_Tank;
-                    Console.WriteLine($"Уровень топлива: {currentamount_Gasoline}");
-                }
-            }//текущее количество бензина 
-            if (Choice_Current_quantity_gasoline == "2")
-            {
-                Random rnd = new Random();
-                int currentamount = rnd.Next(0, 90);
-                this.currentamount_Gasoline = currentamount;
-                if (volume_Tank >= currentamount)
-                {
-                    Console.WriteLine($"Уровень топлива: {currentamount_Gasoline}");
-                }
-                else
-                {
-                    currentamount_Gasoline = volume_Tank;
-                    Console.WriteLine($"Уровень топлива: {currentamount_Gasoline}");
-                }
-            }//текущее количество бензина
-            Console.WriteLine("> Укажите Грузоподъёмность:\n1- Ввод вручную\n2- Автоматически");
-            string? Choice_carrying = Console.ReadLine();
-            if (Choice_carrying == "1")//текущая Грузоподъемность
-            {
-                Console.WriteLine("Грузоподъемность:");
-                this.carrying = Convert.ToInt32(Console.ReadLine());
-                if (2100 >= carrying)
-                {
 
-                    Console.WriteLine($"Грузоподъемность: {carrying}");
-                }
-                else
-                {
-                    this.carrying = 2100;
-                    Console.WriteLine($"Грузоподъемность: {carrying}");
-                }
-            }//текущая Грузоподъемность
-            if (Choice_carrying == "2")
+            Console.WriteLine("> Расход топлива на 100 км:");
+            this.consumption_Fuel = float.Parse(Console.ReadLine());
+            if (consumption_Fuel >= (60 / 2))
             {
-                Random rnd = new Random();
-                int currentamount = rnd.Next(70, 2100);
-                this.carrying = currentamount;
-                Console.WriteLine($"Грузоподъемность: {carrying}");
-            }//текущая Грузоподъемность
-            this.place_Passenger_in_Bus = 30;
-            Console.WriteLine($"Количество мест пассажиров: {place_Passenger_in_Bus}");
-            this.speed = 0;//скорость
-            this.interval = 0;//расстояние что проехали
-            this.rast = 0;//пробег
-            this.kilometragh = 0;//На сколько километров хватит топлива
-            this.Passenger = 0;
-            this.massa = "3т";
-
-            Console.WriteLine($"\n|Информация по машине|");
-            Console.WriteLine("|Автомобиль занесен в базу, теперь его можете выбрать\n");
-            Menu(cars);
-            Console.WriteLine($"> Номер авто: {number_Car}");
-            Console.WriteLine($"> Пробег автомобиля: {rast} км\n");
-        }
-        protected override void Path_Information(List<Auto> cars) // вводим информацию по пути 
-        {
+                Console.WriteLine("расход топлива  Слишком большой!");
+                Info(cars);
+            }
+            Console.WriteLine("> Вместительность пассажиров:");
+            this.place_Passenger_in_Bus = Convert.ToInt32(Console.ReadLine());
+            this.speed = 0;
+            this.currentamount_Gasoline = 0;
+            this.probeg = 0;
+            this.kilometragh = 0;
             this.interval = 0;
-            Console.WriteLine("> Введите координаты вашего пути");
-            Console.WriteLine("Начало-Xa: ");
-            this.koordinata_Xa = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Начало-Ya: ");
-            this.koordinata_Xa = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Конец-Xb: ");
-            this.koordinata_Xb = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Конец-Yb: ");
-            this.koordinata_Yb = Convert.ToInt32(Console.ReadLine());
-
-            distance = (Math.Round(Math.Sqrt(((koordinata_Xb - koordinata_Xa) * (koordinata_Xb - koordinata_Xa)) + ((koordinata_Yb - koordinata_Ya) * (koordinata_Yb - koordinata_Ya)))));
-            distance = Convert.ToInt32(2 * distance);// в одну сторону
-            Console.WriteLine("Введите Количество остановок: ");
-            this.Number_Bus_Stops = Convert.ToInt32(Console.ReadLine());
-
-            this.Stops_Bus_dis = Math.Round((distance / 2) / Number_Bus_Stops);//Находим раст до след ост
-            this.remainder = distance / 2;
-
-            this.kilometragh = Math.Round((currentamount_Gasoline / consumption_Fuel) * 100); //На сколько километров хватит бензина
-            Console.WriteLine("> Данные внесены");
-            Console.WriteLine($"Маршрут поездки: {distance / 2} Км\nОстановок на маршруте: {Number_Bus_Stops}"); //УЧИТЫВАЕМ ЧТО ЭТО ТОЛЬКО В ОДНУ СТОРОНУ, после того как приедет поедет обратно!
-            Console.WriteLine($"\nОбъем бака: {volume_Tank} Литров\nУровень топлива: {currentamount_Gasoline} Литров");
-            Menu(cars);
+            this.Passenger = 0;
         }
-        protected override void Stop(List<Auto> cars)//Остановка
+        protected override void Path_Information(List<Auto> cars)
+        {
+            if (distance > 0)
+            {
+                Console.WriteLine("Сменить маршрут?\nДа - 1\nНет - 2");
+                string? smena = Console.ReadLine();
+                switch (smena)
+                {
+                    case "1":
+                        distance = 0;
+                        break;
+                    case "2":
+                        Console.WriteLine("");
+                        break;
+                }
+                Menu(cars);
+            }
+            if (distance == 0)
+            {
+                speed = 0;
+                Console.WriteLine("> Введите координаты вашего пути");
+                Console.WriteLine("Начало-Xa: ");
+                this.koordinata_Xa = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Начало-Ya: ");
+                this.koordinata_Ya = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Конец-Xb: ");
+                this.koordinata_Xb = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Конец-Yb: ");
+                this.koordinata_Yb = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("> Количество остановок на маршруте: ");
+                this.Number_Bus_Stops = Convert.ToInt32(Console.ReadLine());
+                this.distance = 2 * (Math.Round(Math.Sqrt(((koordinata_Xb - koordinata_Xa) * (koordinata_Xb - koordinata_Xa)) + ((koordinata_Yb - koordinata_Ya) * (koordinata_Yb - koordinata_Ya)))));
+                this.otsihdosih = Math.Round((distance / 2) / Number_Bus_Stops);
+                this.kilometrdoost = distance / 2;
+                this.kilometragh = Math.Round((currentamount_Gasoline / consumption_Fuel) * 100); //На сколько километров хватит бензина
+                Console.WriteLine($"Ваш маршрут: {distance / 2}. \nОстановок: {Number_Bus_Stops}.");
+                this.interval = 0;
+                Menu(cars);
+            }
+        }
+        protected override void Stop(List<Auto> cars)
         {
             speed = 0;
-            interval = 0;
             Console.WriteLine($"\n> Вы остановились\n");
-            Console.WriteLine($"> Пробег автомобиля: {rast} км");
-            Console.WriteLine($"> Вы желаете продолжить или закончить путь ?\n1 - Продолжить\n2 - Закончить\n");
-            string? vybor = Console.ReadLine();
-            if (vybor == "1")
-            {
-                Console.WriteLine($"> Номер авто: {number_Car}");
-                Console.WriteLine($"> Пробег автомобиля: {rast} км");
-                Drive2(cars);
-            }
-            else if (vybor == "2")
-            {
-                return;
-            }
+            Console.WriteLine($"> Номер авто: {number_Car}");
+            Console.WriteLine($"> Пробег автомобиля: {mileage} км");
+            Drive2(cars);
+            Menu(cars);
         }
-        protected override void Razgon(List<Auto> cars) //Разгон
+        protected override void Razgon(List<Auto> cars)
         {
-            while (true)
+            if (distance == 0)
             {
-                try //для поиска ошибок try
-                {
-                    Console.WriteLine("\nВведите значение скорости от 1 до 180 км/ч, до которого хотите разогнаться:\n");
-                    speed = Convert.ToDouble(Console.ReadLine());
-                    carrying = place_Passenger_in_Bus * 70;
-                    if (carrying > 0.1 && carrying <= 1)
-                    {
-                        speed *= 0.6;
-                        Console.WriteLine($"\nС текущим весом  в {carrying} скорость уменьшена на 40%.");
-                        Fuel_Consumption();
-                    }
-                    else
-                    {
-                        if (carrying > 1 && carrying <= 2)
-                        {
-                            speed *= 0.2;
-                            Console.WriteLine($"\nС текущим весом в {carrying} скорость уменьшена на 80%.");
-                            Fuel_Consumption();
-                        }
-                    }
-                    if (speed > 0 && speed <= 180)
-                    {
-                        Fuel_Consumption();
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nОшибка!");
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("\nОшибка!");
-                }
+                Console.WriteLine("Сначала укажите путь!");
+                Menu(cars);
             }
-        }
-        protected void Fuel_Consumption() //рассчет расхода топлива от скорости
-        {
-            if (speed >= 1 && speed <= 45)
-            {
-                consumption_Fuel = 12;
-                if ((currentamount_Gasoline - consumption_Fuel) >= 0)
-                {
-                    Drive2(cars);
-                }
-                else if ((currentamount_Gasoline - consumption_Fuel) < consumption_Fuel)
-                {
-                    Zapravka(cars);
-                }
-            }
-            else if (speed >= 46 && speed <= 100)
-            {
-                consumption_Fuel = 9;
-                if ((currentamount_Gasoline - consumption_Fuel) >= 0)
-                {
-                    Drive2(cars);
-                }
-                else if ((currentamount_Gasoline - consumption_Fuel) < consumption_Fuel)
-                {
-                    Zapravka(cars);
-                }
-            }
-            else if (speed >= 101 && speed <= 180)
-            {
-                consumption_Fuel = 12.5;
-                if ((currentamount_Gasoline - consumption_Fuel) >= 0)
-                {
-                    Drive2(cars);
-                }
-                else if ((currentamount_Gasoline - consumption_Fuel) < consumption_Fuel)
-                {
-                    Zapravka(cars);
-                }
-            }
-        }
-        protected override void Drive2(List<Auto> cars) // Метод езды автомобиля
-        {
-            if (speed > 0)
+            else if (distance > 0)
             {
                 if (currentamount_Gasoline > 0)
                 {
-                    currentamount_Gasoline -= consumption_Fuel;
+                    speed += 20;
+                    Drive2(cars);
+                    Menu(cars);
+                }
+                else if (currentamount_Gasoline <= 0)
+                {
+                    interval = 0;
+                    Console.WriteLine($"Требуется заправка!");
+                    Console.WriteLine("> Заправиться?\nДа - 1\nНет - 2");
+                    string? zap = Console.ReadLine();
+                    switch (zap)
+                    {
+                        case "1":
+                            Zapravka(cars); break;
+                        case "2":
+                            Stop(cars); break;
+                    }
+                }
+            }
+        }
+
+
+
+
+        protected override void Drive2(List<Auto> cars)
+        {
+            if (speed > 0) //Если машина в принципе поехала
+            {
+                if (currentamount_Gasoline > 0)
+                {
+                    currentamount_Gasoline -= consumption_Fuel; //*
+                    //probeg += 100;
                     interval += 100;
                 }
                 else if ((currentamount_Gasoline - consumption_Fuel) < 0 & speed > 0)
                 {
-                    rast -= 100;
+                    probeg -= 100;
                     interval -= 100;
-                    rast += kilometragh;
+                    probeg += kilometragh;
                     interval += kilometragh;
                     currentamount_Gasoline = 0;
                 }
-                else if (currentamount_Gasoline == 0)
+                else if (currentamount_Gasoline <= 0)
                 {
-                    //interval = 0;
-                    Console.WriteLine("Требуется заправка!");
-                    Console.WriteLine("> Заправиться? (1 - Да / 2 - Нет)\n");
-                    string? zapravim = Console.ReadLine();
-                    switch (zapravim)
+                    Console.WriteLine($"Требуется заправка!");
+                    Console.WriteLine("> Заправиться?\nДа - 1\nНет - 2");
+                    string? zap = Console.ReadLine();
+                    switch (zap)
                     {
                         case "1":
-                            Zapravka(cars);
-                            break;
+                            Zapravka(cars); break;
                         case "2":
-                            Stop(cars);
-                            break;
+                            Stop(cars); break;
                     }
                 }
-                else if (currentamount_Gasoline < 0)
+                else if ((currentamount_Gasoline - consumption_Fuel) < topost)
                 {
-                    //interval = 0;
-                    Console.WriteLine("Требуется заправка!");
-                    Console.WriteLine("> Заправиться? (1 - Да / 2 - Нет)\n");
-                    string? zapravim = Console.ReadLine();
-                    switch (zapravim)
+                    Console.WriteLine($"Требуется заправка!");
+                    Console.WriteLine("> Заправиться?\nДа - 1\nНет - 2");
+                    string? zap = Console.ReadLine();
+                    switch (zap)
                     {
                         case "1":
-                            Zapravka(cars);
-                            break;
+                            Zapravka(cars); break;
                         case "2":
-                            Stop(cars);
-                            break;
+                            Stop(cars); break;
                     }
                 }
             }
-            while (rast <= distance / 2)
+            while (probeg <= distance / 2)
             {
-                if (currentamount_Gasoline < 2 && interval < distance / 2 && interval != 0) //!!!
+                if (currentamount_Gasoline < 2 && interval < distance / 2 && interval != 0)
                 {
                     interval += kilometragh - 100;
                     currentamount_Gasoline = 0;
                     speed = 0;
                 }
-                if (interval >= Stops_Bus_dis & Stops_Bus_dis != 0) //Для маршрута
+                if (interval >= otsihdosih & otsihdosih != 0) //Для маршрута
                 {
-                    remainder -= Stops_Bus_dis;
-                    rast += Stops_Bus_dis;
-                    interval += Stops_Bus_dis;
-
+                    double a = otsihdosih - interval;
+                    topost = (a * consumption_Fuel) / 100;
+                    currentamount_Gasoline -= topost;
+                    kilometrdoost -= otsihdosih;
+                    probeg += otsihdosih;
+                    speed = 0;
+                    interval = 0;
                     Console.WriteLine("Остановка!");
-                    Console.WriteLine($"Уровень топлива: {currentamount_Gasoline} литров.");
-                    Console.WriteLine($"Пробег: {rast} километров.");
+                    Console.WriteLine($"Остаток топлива: {Math.Round(currentamount_Gasoline, 1)} литров.");
+                    Console.WriteLine($"Пробег: {Math.Round(probeg)} километров.");
                     Console.WriteLine($"Пассажиры: {Passenger}.");
+                Found:
                     Console.WriteLine("Сколько людей вошло?");
-                    int voyti = Convert.ToInt32(Console.ReadLine());
-                    if (voyti > place_Passenger_in_Bus)
+                    int prihod = Convert.ToInt32(Console.ReadLine());
+                    if (prihod > place_Passenger_in_Bus || (Passenger + prihod) > place_Passenger_in_Bus)
                     {
                         Console.WriteLine("Автобус забит");
-                        Passenger += place_Passenger_in_Bus;
+                        //ludy += mesta;
+                        goto Found;
                     }
                     else
                     {
-                        Passenger += voyti;
-                        Console.WriteLine($"В автобусе {Passenger} пассажиров");
+                        Passenger += prihod;
                     }
+                Round:
                     Console.WriteLine("Сколько людей вышло?");
-                    int vyti = Convert.ToInt32(Console.ReadLine());
-                    if (vyti > place_Passenger_in_Bus)
+                    int uhod = Convert.ToInt32(Console.ReadLine());
+                    if (uhod > place_Passenger_in_Bus || (Passenger - uhod) < 0)
                     {
-                        Console.WriteLine("Автобус пуст!");
-                        Passenger -= place_Passenger_in_Bus;
+                        Console.WriteLine(" Нет столько пассажиров");
+                        //ludy -= mesta;
+                        goto Round;
                     }
                     else
                     {
-                        Passenger -= vyti;
-                        Console.WriteLine($"В автобусе {Passenger} пассажиров");
+                        Passenger -= uhod;
                     }
-                    if (rast == distance / 2 || rast == Number_Bus_Stops * Stops_Bus_dis)
+                    if (probeg == distance / 2 || probeg == Number_Bus_Stops * otsihdosih)
                     {
-                        rast = distance / 2;
-                        remainder = distance / 2;
+                        probeg = distance / 2;
+                        kilometrdoost = distance / 2;
                         Console.WriteLine("ВНИМАНИЕ!!!Автобус на конечной Остановке!!!");
                         Console.WriteLine("ВНИМАНИЕ!!!Автобус Дальше автобус двигается только в обратном направлении!!!");
                     }
                 }
                 kilometragh = Math.Round((currentamount_Gasoline / consumption_Fuel) * 100); //На сколько километров хватит бензина
-
-                Console.WriteLine($"\n> Вы проехали: {interval} км");// Интервал это то сколько -за раз едем, если остановаится он сбрасывается до 0 но пробег все еще остается!
-                Console.WriteLine($"> Cколько проедем при текущем уровне бензина в баке: {kilometragh} км");
-                Console.WriteLine($"> Сейчас в баке: {currentamount_Gasoline} литров");
-                Console.WriteLine($"> Необходимо до последней остановки: {distance} км");
-                Console.WriteLine($"> Пробег автомобиля: {rast} км");
-                Console.WriteLine($"> Вы ехали со скоростью: {speed} км\n");
+                kilom = Math.Round((volume_Tank / consumption_Fuel) * 100);
+                Console.WriteLine($"\n> Вы проехали: {interval} Км");// Интервал это то сколько -за раз едем, если остановаится он сбрасывается до 0 ну пробег все еще остается!
+                // Console.WriteLine($"> Объем бака: {volume_Tank} литров");
+                Console.WriteLine($"> Необходимо проехать до следующей точки: {kilom} Км");
+                Console.WriteLine($"> Ваша скорость: {speed} Км");
+                Console.WriteLine($"> Ваш весь маршрут с дорогой обратно: {distance} Км\n");
                 if (currentamount_Gasoline == 0 || currentamount_Gasoline <= 0)
                 {
                     Console.WriteLine("Требуется заправка!");
@@ -386,82 +275,88 @@ namespace Car
                     Menu(cars);
                 }
             }
-            while (rast <= distance && rast >= distance / 2)
+            while (probeg <= distance && probeg >= distance / 2)
             {
-                if (interval >= remainder && Stops_Bus_dis != 0 && rast >= distance / 2 && rast >= distance && rast >= Stops_Bus_dis * Number_Bus_Stops) //Для маршрута !!!
+                if (interval >= kilometrdoost && otsihdosih != 0 && probeg >= distance / 2 && probeg >= distance && probeg >= otsihdosih * Number_Bus_Stops) //Для маршрута !!!
                 {
-                    remainder = 0;
-                    rast = distance;
-                    interval += Stops_Bus_dis;
+                    kilometrdoost = 0;
+                    probeg = distance;
+                    speed = 0;
+                    interval = 0;
+                    mileage += probeg;
                     Console.WriteLine("База");
-                    Console.WriteLine("");
-                    Console.WriteLine($"Остаток топлива: {currentamount_Gasoline} литров.");
-                    Console.WriteLine($"Пробег: {rast} километров.");
+                    Console.WriteLine($"Топлива осталось: {Math.Round(currentamount_Gasoline, 1)} литров.");
+                    Console.WriteLine($"Пробег: {Math.Round(mileage)} километров.");
                     distance = 0;
+                    probeg = 0;
                 }
                 if (currentamount_Gasoline < 2 && interval < distance && interval != 0)
                 {
-                    rast += kilometragh - 100;
+                    probeg += kilometragh - 100;
                     interval += kilometragh - 100;
                     currentamount_Gasoline = 0;
                     speed = 0;
                 }
-                if (interval >= Stops_Bus_dis && Stops_Bus_dis != 0 && rast < distance) //Для маршрута
+                if (interval >= otsihdosih && otsihdosih != 0 && probeg < distance) //Для маршрута
                 {
-                    if (remainder <= Stops_Bus_dis && rast < distance)
+                    if (kilometrdoost > otsihdosih && probeg < distance)
                     {
-                        remainder -= Stops_Bus_dis;
-                        rast += Stops_Bus_dis;
-                        interval += Stops_Bus_dis;
-                        Console.WriteLine("Остановка!");
-                        Console.WriteLine($"Уровень топлива: {currentamount_Gasoline} литров.");
-                        Console.WriteLine($"Пробег: {rast} километров.");
+                        kilometrdoost -= otsihdosih;
+                        probeg += otsihdosih;
+                        speed = 0;
+                        interval = 0;
+                        Console.WriteLine("Остановка");
+                        Console.WriteLine($"Топлива осталось: {Math.Round(currentamount_Gasoline, 1)} литров.");
+                        Console.WriteLine($"Пробег: {Math.Round(probeg)} километров.");
                         Console.WriteLine($"Пассажиры: {Passenger}.");
+                    Gound:
                         Console.WriteLine("Сколько людей вошло?");
                         int prihod = Convert.ToInt32(Console.ReadLine());
-                        if (prihod > place_Passenger_in_Bus)
+                        if (prihod > place_Passenger_in_Bus || (Passenger + prihod) > place_Passenger_in_Bus)
                         {
-                            Console.WriteLine("Автбум забит!");
-                            Passenger += place_Passenger_in_Bus;
+                            Console.WriteLine("Автобус забит");
+                            goto Gound;
                         }
                         else
                         {
                             Passenger += prihod;
-                            Console.WriteLine($"В автобусе {Passenger} пассажиров");
                         }
+                    Pound:
                         Console.WriteLine("Сколько людей вышло?");
                         int uhod = Convert.ToInt32(Console.ReadLine());
-                        if (uhod > place_Passenger_in_Bus)
+                        if (uhod > place_Passenger_in_Bus || (Passenger - uhod) < 0)
                         {
-                            Console.WriteLine("Все пассажиры вышли");
-                            Passenger -= place_Passenger_in_Bus;
+                            Console.WriteLine(" Нет столько пассажиров");
+                            goto Pound;
                         }
                         else
                         {
                             Passenger -= uhod;
-                            Console.WriteLine($"В автобусе {Passenger} пассажиров");
                         }
                     }
-                    else if (remainder >= Stops_Bus_dis)
+                    else if (kilometrdoost <= otsihdosih) //*
                     {
-                        remainder -= remainder;
-                        remainder = 0;
-                        rast = distance;
+                        kilometrdoost -= kilometrdoost;
+                        kilometrdoost = 0;
+                        probeg = distance;
+                        speed = 0;
                         interval = 0;
+                        mileage += probeg;
                         Console.WriteLine("База");
-                        Console.WriteLine($"Остаток топлива: {currentamount_Gasoline} литров.");
-                        Console.WriteLine($"Пробег: {rast} километров.");
+                        Console.WriteLine($"Топлива осталось: {Math.Round(currentamount_Gasoline, 1)} литров.");
+                        Console.WriteLine($"Пробег: {Math.Round(mileage)} километров.");
                         distance = 0;
+                        probeg = 0;
                     }
                 }
                 kilometragh = Math.Round((currentamount_Gasoline / consumption_Fuel) * 100); //На сколько километров хватит бензина
-                Console.WriteLine($"\n> Вы проехали: {interval} км");// Интервал это то сколько -за раз едем, если остановаится он сбрасывается до 0 но пробег все еще остается!
-                Console.WriteLine($"> Cколько проедем при текущем уровне бензина в баке: {kilometragh} км");
-                Console.WriteLine($"> Сейчас в баке: {currentamount_Gasoline} литров");
-                Console.WriteLine($"> Необходимо до последней остановки: {distance} км");
-                Console.WriteLine($"> Пробег автомобиля: {rast} км");
-                Console.WriteLine($"> Вы ехали со скоростью: {speed} км\n");
-
+                kilom = Math.Round((volume_Tank / consumption_Fuel) * 100);
+                topost = ((otsihdosih * consumption_Fuel) / 100);
+                Console.WriteLine($"\n> Вы проехали: {interval} Км");// Интервал это то сколько -за раз едем, если остановаится он сбрасывается до 0 ну пробег все еще остается!
+                // Console.WriteLine($"> Объем бака: {volume_Tank} литров");
+                Console.WriteLine($"> Необходимо проехать до следующей точки: {kilom} Км");
+                Console.WriteLine($"> Ваша скорость: {speed} Км");
+                Console.WriteLine($"> Ваш весь маршрут с дорогой обратно: {distance} Км\n");
                 if (currentamount_Gasoline == 0)
                 {
                     Console.WriteLine("Требуется заправка!");
@@ -483,6 +378,11 @@ namespace Car
                 }
             }
         }
+
+        protected override void Crash(List<Auto> cars)
+        {
+            base.Crash(cars);
+        }
         public override void Menu(List<Auto> cars)//меню выбора
         {
             Console.WriteLine(">> Меню:" +
@@ -491,8 +391,7 @@ namespace Car
                              "\n> 3 - Останавливаемся" +
                              "\n> 4 - Заправиться" +
                              "\n> 5 - Сменить автомобиль" +
-                             "\n> 6 - Вызывть справку по машине" +
-                             "\n> 7 - АВАРИЯ");
+                             "\n> 6 - АВАРИЯ");
 
             string? vybor = Console.ReadLine();
             switch (vybor)
@@ -513,10 +412,6 @@ namespace Car
                     CarConclusion.categories(cars);
                     break;
                 case "6":
-                    Out();
-                    Menu(cars);
-                    break;
-                case "7":
                     Crash(cars);
                     break;
                 default:
