@@ -85,10 +85,6 @@ namespace Car
             this.kilometragh = 0;//
             this.interval = 0;//осталось
         }
-
-
-
-
         protected override void Path_Information(List<Auto> cars)
         {
             if (distance > 0)
@@ -141,7 +137,6 @@ namespace Car
                 Menu(cars);
             }
         }
-
         protected override void Stop(List<Auto> cars)
         {
             speed = 0;
@@ -151,8 +146,6 @@ namespace Car
             Drive2(cars);
             Menu(cars);
         }
-
-
         protected override void Razgon(List<Auto> cars)
         {
             if (distance == 0)
@@ -184,7 +177,6 @@ namespace Car
                 }
             }
         }
-
         //protected void Unloading_Point(List<Auto> cars) // вводим информацию по пути 
         //{
         //    Mesto_Razgruz = Math.Sqrt(Math.Pow(koordinata_X_Unloading - koordinata_Xb, 2) + Math.Pow(koordinata_Y_Unloading - koordinata_Yb, 2)); //расстояние от места погрузки до места рагрузки
@@ -312,7 +304,6 @@ namespace Car
         //{
         //    Razgon(cars);
         //}
-
         protected override void Drive2(List<Auto> cars)
         {
             if (speed > 0) //Если машина в принципе поехала
@@ -525,8 +516,7 @@ namespace Car
                     Zapravka(cars);
                     break;
                 case "5":
-                    CarConclusion.categories(cars);
-                    break;                   
+                    return;
                 case "6":
                     Crash(cars);
                     break;

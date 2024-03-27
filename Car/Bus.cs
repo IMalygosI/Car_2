@@ -409,8 +409,7 @@ namespace Car
                     Zapravka(cars);
                     break;
                 case "5":
-                    CarConclusion.categories(cars);
-                    break;
+                    return;
                 case "6":
                     Crash(cars);
                     break;
